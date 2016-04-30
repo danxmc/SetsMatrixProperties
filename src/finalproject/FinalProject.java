@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author danx_
+ * @author LuisaFernandaPineda, DanielAlexandroMartínez
  */
 public class FinalProject {
 
@@ -46,50 +46,66 @@ public class FinalProject {
         } while (select != 2);
     }
 
+    /**
+     * Metodo que ordena las coordenadas que el usuario ingrese, en una matriz y
+     * despues la imprime para verificar si es correcta, en caso que no lo sea 
+     * se puede volver a ingresar las coordenadas en la matriz
+     */
     private static void setCoordenadas() {
-        System.out.print("¿Cuantas parejas ordenadas habra en total? ");
-        int temp = scan.nextInt();
-        System.out.println("Escriba las coordenadas en orden ascendente (empieza en 0, 0): ");
-        boolean flag = false;
-        int a = 0, b = 0, count = 1;
+        int select = 1;
+        
+        do {
+            System.out.print("¿Cuantas parejas ordenadas habra en total? ");
+            int temp = scan.nextInt();
+            System.out.println("Escriba las coordenadas en orden ascendente (empieza en 0, 0): ");
+            boolean flag = false;
+            int a = 0, b = 0, count = 1;
 
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                if ((a != i) || (b != j)) {
-                    matrix[i][j] = 0;
-                }
-                if (count > temp) {
-                    flag = true;
-                }
-                if (!flag) {
-                    System.out.println("Par ordenado #" + count);
-                    System.out.print("Ingrese la coordenada a: ");
-                    a = scan.nextInt();
-                    System.out.print("Ingrese la coordenada b: ");
-                    b = scan.nextInt();
-                    count++;
-                    flag = true;
-                    System.out.println("");
-                }
-
-                if ((a == i) && (b == j)) {
-                    matrix[i][j] = 1;
-                    flag = false;
+            for (int i = 0; i < matrix.length; i++) {
+                for (int j = 0; j < matrix[0].length; j++) {
+                    if (count > temp) {
+                        flag = true;
+                    }
+                    if (!flag) {
+                        System.out.println("Par ordenado #" + count);
+                        System.out.print("Ingrese la coordenada a: ");
+                        a = scan.nextInt();
+                        System.out.print("Ingrese la coordenada b: ");
+                        b = scan.nextInt();
+                        count++;
+                        flag = true;
+                        System.out.println("");
+                    }
+                    if ((a != i) || (b != j)) {
+                        matrix[i][j] = 0;
+                    }
+                    if (((a == i) && (b == j)) && flag) {
+                        matrix[i][j] = 1;
+                        flag = false;
+                    }
                 }
             }
-        }
 
-        System.out.println("La matriz del set es: ");
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                System.out.print(matrix[i][j] + " ");
+            System.out.println("La matriz del set es: ");
+            for (int i = 0; i < matrix.length; i++) {
+                for (int j = 0; j < matrix[0].length; j++) {
+                    System.out.print(matrix[i][j] + " ");
+                }
+                System.out.println("");
             }
+            System.out.println("¿Es esta la matriz a evaluar?\n"
+                    + "Presione 1 si lo es, 0 si no: ");
+            select = scan.nextInt();
             System.out.println("");
-        }
+        } while (select != 1);
 
-        System.out.println("");
     }
 
+    /**
+     * Metodo que checa la reflexividad de la matriz, recorre cada espacio de
+     * la matriz y evalua cuando las columnas tienen el mismo valor que los
+     * renglones.
+     */
     private static void checkReflexivity() {
         boolean flag = true;
         for (int i = 0; i < matrix.length; i++) {
@@ -106,6 +122,10 @@ public class FinalProject {
         System.out.println("Reflexividad: " + flag);
     }
 
+    /**
+     * Metodo que checa la simetria de la matriz, recorre cada espacio de la 
+     * matriz y evalua la coordenada actual y su inversa.
+     */
     private static void checkSymmetry() {
         boolean flag = true;
         for (int i = 0; i < matrix.length; i++) {
@@ -120,6 +140,13 @@ public class FinalProject {
         System.out.println("Simetria: " + flag);
     }
 
+    /**
+     * Metodo que checa la antisimetria de la matriz, recorre cada espacio de la
+     * matriz, SOLO evalua cuando el renglon y la columna no tienen el mismo
+     * valor, para evitar confundirse con "los datos reflexivos" (ya que su
+     * posicion inversa sigue siendo la misma), cuando esta condicion se cumple,
+     * evalua los valores en las posicion actual e inversa.
+     */
     private static void checkAntisymmetry() {
         boolean flag = true;
         for (int i = 0; i < matrix.length; i++) {
@@ -141,11 +168,19 @@ public class FinalProject {
         System.out.println("Antisimetria: " + flag);
     }
 
+    /**
+     * Metodo que checa la transitividad de la matriz, primero hace una copia de
+     * la matriz ingresada y la coloca en otra variable, para despues hacer
+     * una multiplicación entre ellas, el resultado se evalua con los valores
+     * en las posiciones de la original, de igual manera se imprime la matriz 
+     * resultante como comprobación para el usuario.
+     */
     private static void checkTransitivity() {
         boolean flag = true;
         int[][] m1 = new int[matrix.length][matrix[0].length];
         int[][] r = new int[matrix.length][matrix[0].length];
-
+        m1 = matrix;
+        
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < m1[0].length; j++) {
                 for (int k = 0; k < matrix.length; k++) {
@@ -163,7 +198,7 @@ public class FinalProject {
                 }
             }
         }
-        
+
         System.out.println("Transitividad: " + flag);
         System.out.println("Comprobación de la matriz resultante (matriz inicial multiplicada por si misma): ");
         for (int i = 0; i < r.length; i++) {
