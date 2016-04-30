@@ -21,17 +21,23 @@ public class FinalProject {
      */
     public static void main(String[] args) {
         int select = 0;
-        System.out.println("Bienevenido al sistema de verificación de propiedades de sets");
+        System.out.println("Bienevenido al sistema de verificación de propiedades "
+                + "de sets");
         do {
-            System.out.println("Presione '1' si desea ingresar un set para checar sus propiedades");
+            System.out.println("Presione '1' si desea ingresar un set para checar "
+                    + "sus propiedades");
             System.out.println("Presione '2' si desea salir");
             System.out.print("Selección: ");
             select = scan.nextInt();
             switch (select) {
                 case 1:
                     System.out.println("");
-                    System.out.print("¿Cuantos nodos existen? ");
-                    int n = scan.nextInt();
+                    int n = 0;
+                    while (n <= 1) {
+                    System.out.print("¿Cuantos nodos existen? (Tiene que ser mayor"
+                            + " o igual a 2) ");
+                    n = scan.nextInt();  
+                    }
                     matrix = new int[n][n];
                     setCoordenadas();
                     checkReflexivity();
@@ -57,7 +63,8 @@ public class FinalProject {
         do {
             System.out.print("¿Cuantas parejas ordenadas habra en total? ");
             int temp = scan.nextInt();
-            System.out.println("Escriba las coordenadas en orden ascendente (empieza en 0, 0): ");
+            System.out.println("Escriba las coordenadas en orden ascendente "
+                    + "(empieza en 0, 0): ");
             boolean flag = false;
             int a = 0, b = 0, count = 1;
 
@@ -200,7 +207,8 @@ public class FinalProject {
         }
 
         System.out.println("Transitividad: " + flag);
-        System.out.println("Comprobación de la matriz resultante (matriz inicial multiplicada por si misma): ");
+        System.out.println("Comprobación de la matriz resultante "
+                + "(matriz inicial multiplicada por si misma): ");
         for (int i = 0; i < r.length; i++) {
             for (int j = 0; j < r[0].length; j++) {
                 System.out.print(r[i][j] + " ");
