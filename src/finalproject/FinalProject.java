@@ -155,14 +155,14 @@ public class FinalProject {
      * evalua los valores en las posicion actual e inversa.
      */
     private static void checkAntisymmetry() {
-        boolean flag = true;
+        boolean flag = false;
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
                 if (i != j) {
-                    if ((matrix[i][j] == 1) && (matrix[j][i] == 1)) {
-                        flag = false;
-                        i = matrix.length + 1;
-                        j = matrix[0].length + 1;
+                    if ((matrix[i][j] == 1) && (matrix[j][i] == 0)) {
+                        flag = true;
+                        //i = matrix.length + 1;
+                        //j = matrix[0].length + 1;
                     }
                     /*if ((matrix[i][j] == 1) && (matrix[j][i] == 0)) {
                         flag = true;
