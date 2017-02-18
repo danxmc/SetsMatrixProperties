@@ -13,18 +13,18 @@ import java.util.Scanner;
  */
 public class FinalProject {
 
-    static Scanner scan = new Scanner(System.in);
-    static int[][] matrix;
+    private static Scanner scan = new Scanner(System.in);
+    private static int[][] matrix;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         int select = 0;
-        System.out.println("Bienevenido al sistema de verificación de propiedades "
+        System.out.println("Bienvenido al sistema de verificación de propiedades "
                 + "de sets");
         do {
-            System.out.println("Presione '1' si desea ingresar un set para checar "
+            System.out.println("Presione '1' si desea ingresar un set para verificar "
                     + "sus propiedades");
             System.out.println("Presione '2' si desea salir");
             System.out.print("Selección: ");
@@ -33,9 +33,9 @@ public class FinalProject {
                 case 1:
                     System.out.println("");
                     int n = 0;
-                    while (n <= 1) {
+                    while (n <= 0) {
                     System.out.print("¿Cuantos nodos existen? (Tiene que ser mayor"
-                            + " o igual a 2) ");
+                            + " o igual a 1) ");
                     n = scan.nextInt();  
                     }
                     matrix = new int[n][n];
@@ -47,6 +47,7 @@ public class FinalProject {
                     System.out.println("");
                     break;
                 case 2:
+                    System.out.println("Saliendo");
                     break;
             }
         } while (select != 2);
@@ -66,7 +67,7 @@ public class FinalProject {
             System.out.println("Escriba las coordenadas en orden ascendente "
                     + "(empieza en 0, 0): ");
             boolean flag = false;
-            int a = 0, b = 0, count = 1;
+            int a = -1, b = -1, count = 1;
 
             for (int i = 0; i < matrix.length; i++) {
                 for (int j = 0; j < matrix[0].length; j++) {
@@ -83,6 +84,7 @@ public class FinalProject {
                         flag = true;
                         System.out.println("");
                     }
+                    //Moves through the matrix and inserts 0 or 1 depending on the coordinates
                     if ((a != i) || (b != j)) {
                         matrix[i][j] = 0;
                     }
@@ -95,10 +97,11 @@ public class FinalProject {
 
             System.out.println("La matriz del set es: ");
             for (int i = 0; i < matrix.length; i++) {
+                System.out.print("[ ");
                 for (int j = 0; j < matrix[0].length; j++) {
                     System.out.print(matrix[i][j] + " ");
                 }
-                System.out.println("");
+                System.out.println("]");
             }
             System.out.println("¿Es esta la matriz a evaluar?\n"
                     + "Presione 1 si lo es, 0 si no: ");
@@ -164,11 +167,6 @@ public class FinalProject {
                         //i = matrix.length + 1;
                         //j = matrix[0].length + 1;
                     }
-                    /*if ((matrix[i][j] == 1) && (matrix[j][i] == 0)) {
-                        flag = true;
-                        i = matrix.length + 1;
-                        j = matrix[0].length + 1;
-                    }*/
                 }
             }
         }
@@ -184,9 +182,8 @@ public class FinalProject {
      */
     private static void checkTransitivity() {
         boolean flag = true;
-        int[][] m1 = new int[matrix.length][matrix[0].length];
+        int[][] m1 = matrix;
         int[][] r = new int[matrix.length][matrix[0].length];
-        m1 = matrix;
         
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < m1[0].length; j++) {
